@@ -1,0 +1,18 @@
+CustomGroup:
+  MyAPI_1:
+    - type: api
+      url: https://example.com/FUZZ?token=ABC
+      headers: Null
+      export: True
+      output:
+        - shell_output: True
+          file_output: True
+  
+  MyAPI_2:
+    - type: api
+      url: https://example.com/FUZZ?token=ABC
+      headers: Null
+      export: True
+      output:
+        - shell_output: True
+          file_output: True
