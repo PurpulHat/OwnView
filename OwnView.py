@@ -1,8 +1,6 @@
 import yaml
 import requests
-from pyvis.network import Network
 import graph
-
 
 print("""
  ██████╗ ██╗    ██╗███╗   ██╗    ██╗   ██╗██╗███████╗██╗    ██╗    
@@ -15,6 +13,7 @@ print("""
 
 with open("config.yml", "r") as file:
     config = yaml.safe_load(file)
+
 
 
 # Try to execute the fuction 3 time before return an error
@@ -32,13 +31,14 @@ def ExecuteAttempt(execute):
         return execute
 
 
-def SendOutPut(group, action, data):
-        if config[group][action][0]["output"][0]["shell_output"] == True:
-            print(data)
-            #net.from_nx(data)
-            #net.show("test.html")
-
  
+def Fuzz(config_child):
+    try:
+        return value[config_child].replace("FUZZ", search)
+    except Exception:
+        return value[config_child]
+
+
 
 print("[Enumeration of groups in your config.yml]")
 number_of_group = 0
@@ -62,41 +62,34 @@ for type, value in config[choice].items():
     value = value[0]
 
     match value["type"]:
+        case "api":
 
-        # Execution if your child's groupe type is Python Code
-        case "python":
-            if value["module"] != None:
-                a = f"import {value["module"]}"
-                print(a)
-                exec(a)
-                exec('import whois ; whois.whois("empirys.com")')
-            #a = exec(value["function"].replace("FUZZ", search))
-            print("TEST")
-            exec("print(\"Test\")")
-            #print(a)
+            # Get "FUZZ" value and replace it from your search input
+            for fuzz_check in ["body","headers","url"]:
+                try:
+                    for fuzz in value[fuzz_check][0]:
+                        try:
+                            value[fuzz_check][0][fuzz] = value[fuzz_check][0][fuzz].replace("FUZZ", search)
+                        except:
+                            continue
+                except TypeError:
+                    value[fuzz_check] = value[fuzz_check].replace("FUZZ", search)
             
-
-
-        # Execution if your child's groupe type is API
-        case "api": 
-            try:
-                requests_headers = value["headers"].replace("FUZZ", search)
-            except Exception:
-                requests_headers = value["headers"]
-
             # Split URL and Params
-            value["url"] = value["url"].replace("FUZZ", search)
             base_url, base_params = value["url"].split('?', 1) if '?' in value["url"] else (value["url"], '')
 
-            if value["headers"] != None:
-                data = requests.get(url=base_url, headers=value["headers"], params=base_params)
-
-            else:
-                response = ExecuteAttempt(requests.get(url=base_url, params=base_params))
-                data = response.json()
-
-            #SendOutPut("url", "ABC", data)
-            #print(data)
-            print(type)
-            graph.BuildGraph(search, data, choice, type)
+            match value["method"].upper():
+                case "GET":
+                    response = requests.get(url=base_url, headers=value["headers"], params=base_params)
+                    data = response.json()
+                case "POST":
+                    response = requests.post(url=base_url, headers=value["headers"][0], params=base_params, json=value["body"][0])
+                    data = response.json()
+                case _:
+                    print("[!] HTTP Method not supported (GET or POST only) :: Skip")
             
+            if value["output"][0]["shell"] == True:
+                print(data)
+            if value["output"][0]["graph"] == True:
+                graph.BuildGraph(search, data, choice, type)
+

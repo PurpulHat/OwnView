@@ -1,2 +1,6 @@
 ppyaml
 requests
+networkx
+webbrowser
+pyvis.network
+graph
