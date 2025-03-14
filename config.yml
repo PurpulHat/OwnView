@@ -1,0 +1,37 @@
+CustomGroup:
+  MyAPI_POST:
+    - type: api
+      method: POST
+      url: https://example.com/FUZZ?token=ABC
+      headers: 
+        - api-key: ABC
+          Content-Type: application/json
+          Other-Headers: other
+      body:
+        - entry: FUZZ
+          OtherEntry: ABC
+      output:
+        - shell: True
+          graph: True
+              
+  MyAPI_GET:
+    - type: api
+      method: GET
+      url: https:/your.api/token=ABC
+      headers: 
+        - api-key: ABC
+          Content-Type: application/json
+          Other-Headers: other
+      output:
+        - shell: True
+          graph: True
+
+
+CustomGroup_2:
+  MyAPI:
+    - type: api
+      url: https://example.com/FUZZ?token=ABC
+      headers: Null
+      output:
+        - shell: True
+          graph: True

@@ -1,0 +1,4 @@
+ppyaml
+requests
+networkx
+pyvis
