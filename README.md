@@ -8,6 +8,12 @@
   <b>Create your Own OSINT automatisation<br> with fully customisables templates and graphicals Views</b>
 </p>
 
+
+<p>
+  <h1 align="center">📝⚠️OwnView is being completely rewritten!</h2>
+  <b>OwnView will now feature a graphical interface similar to Maltego's, allowing you to recursively perform further searches based on your API results.</b>
+</p>
+
 ## Table of Contents
 
 - [Introduction](#introduction)
