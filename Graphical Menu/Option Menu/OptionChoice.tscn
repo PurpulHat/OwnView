@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://hkaalfgnelxq"]
+
+[ext_resource type="Script" uid="uid://dughq2xsjgfjn" path="res://Graphical Menu/Option Menu/option_choice.gd" id="1_w3340"]
+[ext_resource type="Script" uid="uid://hsg1gujwc6ww" path="res://Graphical Menu/Option Menu/tree.gd" id="1_x7ktf"]
+
+[sub_resource type="Theme" id="Theme_w3340"]
+
+[node name="Control" type="Window"]
+title = "Choose your search"
+position = Vector2i(0, 36)
+size = Vector2i(615, 425)
+unresizable = true
+script = ExtResource("1_w3340")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -15.0
+offset_right = 615.0
+offset_bottom = 425.0
+theme = SubResource("Theme_w3340")
+
+[node name="Tree" type="Tree" parent="Panel"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 9.0
+offset_right = 353.0
+offset_bottom = 416.0
+script = ExtResource("1_x7ktf")
+
+[node name="TextEdit" type="TextEdit" parent="Panel"]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 9.0
+offset_right = 623.0
+offset_bottom = 379.0
+placeholder_text = "Description"
+editable = false
+wrap_mode = 1
+
+[node name="New Request" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 385.0
+offset_right = 480.0
+offset_bottom = 416.0
+text = "+ New request"
+
+[node name="Use selected" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 487.0
+offset_top = 385.0
+offset_right = 623.0
+offset_bottom = 416.0
+text = "Use selected"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="item_selected" from="Panel/Tree" to="Panel/Tree" method="_on_item_selected"]
+[connection signal="pressed" from="Panel/New Request" to="." method="_on_new_request_pressed"]
+[connection signal="pressed" from="Panel/Use selected" to="Panel/Tree" method="_on_use_selected_pressed"]

@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhdpb8va8errc"]
+
+[ext_resource type="Script" uid="uid://byw47sl5vjit0" path="res://Graphical Menu/GraphEdit.gd" id="1_4kviu"]
+[ext_resource type="Script" uid="uid://buxkvtkh2cq4v" path="res://Graphical Menu/menu_right_click.gd" id="2_nj626"]
+[ext_resource type="Script" uid="uid://dl4myahbj3do2" path="res://json_scan.gd" id="3_cq6v4"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_4kviu")
+
+[node name="GraphEdit" type="GraphEdit" parent="."]
+offset_top = 33.0
+offset_right = 1152.0
+offset_bottom = 648.0
+scroll_offset = Vector2(-45, -112)
+script = ExtResource("2_nj626")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 1.0
+offset_right = 99.0
+offset_bottom = 31.0
+text = "Add +"
+
+[node name="Link" type="Button" parent="."]
+offset_left = 105.0
+offset_right = 156.0
+offset_bottom = 31.0
+text = "Link"
+
+[node name="Add Node From JSON" type="Button" parent="."]
+offset_left = 162.0
+offset_right = 338.0
+offset_bottom = 31.0
+theme_override_colors/font_hover_pressed_color = Color(0.87451, 0, 0, 1)
+text = "Add Node From JSON"
+script = ExtResource("3_cq6v4")
+
+[connection signal="connection_request" from="GraphEdit" to="." method="_on_graph_edit_connection_request"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Link" to="." method="_on_link_pressed"]
