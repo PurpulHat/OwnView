@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj75tje62lgl2"]
+
+[ext_resource type="Script" uid="uid://7ciyiwekckvl" path="res://graph_node.gd" id="1_778af"]
+
+[node name="GraphNode" type="GraphNode"]
+offset_right = 291.0
+offset_bottom = 105.0
+resizable = true
+title = "Input"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("1_778af")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+placeholder_text = "Yout input"

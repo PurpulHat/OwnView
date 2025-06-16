@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://clhccslbsa2af"]
+
+[ext_resource type="Script" uid="uid://bw3ob6frhmk41" path="res://Node/User_Input/input.gd" id="1_i55gr"]
+
+[node name="Window" type="Window"]
+initial_position = 2
+size = Vector2i(450, 100)
+unresizable = true
+always_on_top = true
+script = ExtResource("1_i55gr")
+
+[node name="Panel" type="Panel" parent="."]
+layout_direction = 4
+offset_right = 450.0
+offset_bottom = 100.0
+
+[node name="LineEdit" type="LineEdit" parent="Panel"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 51.0
+offset_right = 372.0
+offset_bottom = 82.0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 16.0
+offset_right = 447.0
+offset_bottom = 39.0
+text = "Enter your input"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 386.0
+offset_top = 51.0
+offset_right = 435.0
+offset_bottom = 82.0
+text = "Done"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]

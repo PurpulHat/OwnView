@@ -1,0 +1,14 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1745586131
+APIRequest.tscn::PackedScene::5291031567702381381::1745585024::0::1::::<><><>0<>0<><>::
+json_scan.gd::GDScript::7991977759804505811::1745580607::0::1::::<>Node<><>0<>0<><>::
+OwnViewLogo.png::CompressedTexture2D/CompressedTexture2D::828313612524763493::1745585322::1745585323::1::::<><><>0<>0<>19fcefe84e209fee1664b458b628fa60<>res://.godot/imported/OwnViewLogo.png-4f214dcb12e98ab0885110bb690087ac.ctex::
+right_click.gd::GDScript/GDScript::6947936342052571759::1745504422::0::1::::<>Control<><>0<>0<><>::
+right_click.tscn::PackedScene::5825474676056092241::1745580609::0::1::::<><><>0<>0<><>::
+::res://Graphical Menu/::1745580609
+GraphEdit.gd::GDScript::4118188143595018071::1745570367::0::1::::<>Node2D<><>0<>0<><>::
+Graphic.tscn::PackedScene::7657691396248835064::1745580609::0::1::::<><><>0<>0<><>::uid://byw47sl5vjit0::::res://Graphical Menu/GraphEdit.gd<>uid://buxkvtkh2cq4v::::res://Graphical Menu/menu_right_click.gd<>uid://dl4myahbj3do2::::res://json_scan.gd
+menu_right_click.gd::GDScript::3838323930142715087::1745570104::0::1::::<>GraphEdit<><>0<>0<><>::
+::res://Node/::1745585374
+GraphNode.tscn::PackedScene::7858877652153082257::1745585374::0::1::::<><><>0<>0<><>::
+graph_edit.gd::GDScript/GDScript::5364654344800854489::1745488184::0::1::::<>GraphEdit<><>0<>0<><>::

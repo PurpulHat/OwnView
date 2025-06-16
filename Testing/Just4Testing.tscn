@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://1pt4xnhr3sot"]
+
+[node name="GraphEdit" type="GraphEdit"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GraphNode" type="GraphNode" parent="."]
+layout_mode = 0
+offset_left = 119.0
+offset_top = 124.0
+offset_right = 412.0
+offset_bottom = 249.0
+mouse_filter = 1
+position_offset = Vector2(119, 124)
+
+[node name="PopupMenu" type="PopupMenu" parent="."]

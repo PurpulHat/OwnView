@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://co85ymvgril0d"]
+
+[node name="RightClick" type="Control"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 3
+anchor_right = 0.1
+anchor_bottom = 0.107
+offset_right = -0.200005
+offset_bottom = -1.33601
+
+[node name="Node2D" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 1.0
+offset_right = 114.0
+offset_bottom = 68.0
+
+[node name="Button2" type="Button" parent="Node2D"]
+layout_mode = 2
+text = "Add Node +"
+
+[node name="Button" type="Button" parent="Node2D"]
+layout_mode = 2
+text = "Delete Node -"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
