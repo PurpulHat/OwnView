@@ -23,3 +23,8 @@ GlobalSignal="*res://Class/Global_Signal.gd"
 [global]
 
 network_mode=false
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

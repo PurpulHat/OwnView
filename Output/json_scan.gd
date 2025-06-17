@@ -68,7 +68,6 @@ func get_value_key(json = Node_Tools.json_data, mother = "Master"):
 			Node_Tools.check_list.append(get_key)
 			create_or_add(mother, Node_Tools.check_same_name(inside_key, Node_Tools.check_list), get_key)
 
-	#print("[GRAND MOTHER] : ", grand_mother, type_string(typeof(grand_mother)), " [MOTHER] : ", mother, type_string(typeof(mother)))
 	grand_mother = mother
 
 
@@ -100,7 +99,7 @@ func _insert_option(button, value, mother):
 				OptionChoice.popup_centered()
 
 				GlobalSignal.api_request.connect(func(api):
-					await Request.POST(self, api["url"], api["headers"], api["body"], value)
+					await Request._REQUEST_METHOD(self, api["url"], api["headers"], api["body"], api["method"], value)
 					await get_value_key(Node_Tools.json_data, Node_Tools.check_same_name(child_node.name, Node_Tools.check_list))
 					$"../GraphEdit".connect_node(Sanitize._for_name(mother), child_node.get_index()-1, Sanitize._for_name(child_node.name) ,0)
 				)
@@ -163,7 +162,6 @@ func create_new_input(mother, value, index):
 
 
 func create_or_add(mother, value, key):
-	#print("[MOTHER] : ",mother)
 	a += 1
 	# Verify if NOT a Node with the same name exist
 	if not $"../GraphEdit".has_node(str(Sanitize._for_name(mother))):
@@ -202,12 +200,9 @@ func create_or_add(mother, value, key):
 		var menu_value = MenuButton.new()
 		
 		if grand_mother_verif == grand_mother:
-			print("YES : ", grand_mother)
 			$"../GraphEdit".connect_node(Sanitize._for_name(grand_mother), 0, Sanitize._for_name(mother), 0)
 		else:
-			print("NO : ", grand_mother_verif, " & ", grand_mother, " & ", mother)
 			$"../GraphEdit".connect_node(search_node_name, search_node_index-1, Sanitize._for_name(mother), 0)
-			print(Sanitize._for_name(master))
 
 		grand_mother_verif = mother
 		# Connect the nodes
@@ -227,7 +222,6 @@ func create_or_add(mother, value, key):
 		# Create Label for your value
 		_insert_value(node_instance, value, mother)
 	
-	#print("[B] : ", grand_mother, " ", mother)
 
 
 	
