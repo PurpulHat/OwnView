@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://djdv1pegtti64"]
+[gd_scene load_steps=7 format=3 uid="uid://djdv1pegtti64"]
 
 [ext_resource type="Script" uid="uid://dofun55g4amuk" path="res://Graphical Menu/Option Menu/option_creation.gd" id="1_q7ujx"]
 [ext_resource type="Script" uid="uid://dmmb85kdaxg67" path="res://Graphical Menu/Option Menu/Header/del_header.gd" id="2_8osde"]
 [ext_resource type="Script" uid="uid://cufnf3iub8475" path="res://Graphical Menu/Option Menu/Header/add_header.gd" id="2_bc22x"]
 [ext_resource type="Script" uid="uid://g3wa0qw6i1mk" path="res://Graphical Menu/Option Menu/Body/del_body.gd" id="4_qingp"]
 [ext_resource type="Script" uid="uid://clx4xqaf015d2" path="res://Graphical Menu/Option Menu/Body/add_body.gd" id="5_e6k11"]
+[ext_resource type="Script" uid="uid://k60gs1iwwe5q" path="res://Graphical Menu/Option Menu/http_method.gd" id="6_e6k11"]
 
 [node name="OptionCreation" type="Window"]
 title = "Search Creation"
@@ -12,7 +13,9 @@ initial_position = 2
 size = Vector2i(810, 535)
 unresizable = true
 always_on_top = true
+popup_window = true
 script = ExtResource("1_q7ujx")
+metadata/_edit_horizontal_guides_ = [61.0]
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(0, 450)
@@ -147,15 +150,15 @@ offset_left = 497.0
 offset_top = 385.0
 offset_right = 803.0
 offset_bottom = 416.0
-text = "Send a requet"
+text = "Send a test request"
 metadata/_edit_use_anchors_ = true
 
-[node name="Url" type="TextEdit" parent="Panel"]
+[node name="Url" type="LineEdit" parent="Panel"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.012
 anchor_top = 0.016
-anchor_right = 0.598
+anchor_right = 0.469324
 anchor_bottom = 0.06
 offset_left = 0.208
 offset_top = 0.183105
@@ -163,8 +166,22 @@ offset_right = 0.0319519
 offset_bottom = -0.063343
 theme_override_font_sizes/font_size = 10
 placeholder_text = "Url from your API"
-scroll_past_end_of_file = true
 metadata/_edit_use_anchors_ = true
+
+[node name="HTTP_Method" type="LineEdit" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.353
+anchor_top = -15.71
+anchor_right = -0.039
+anchor_bottom = -14.903
+offset_left = 677.048
+offset_top = 8665.08
+offset_right = 516.824
+offset_bottom = 8245.38
+theme_override_font_sizes/font_size = 12
+placeholder_text = "HTTP Method"
+script = ExtResource("6_e6k11")
 
 [node name="Name" type="TextEdit" parent="Panel"]
 layout_mode = 1
@@ -194,6 +211,7 @@ offset_left = -0.240001
 offset_top = 0.0925903
 offset_right = -0.0960007
 offset_bottom = 0.233459
+disabled = true
 text = "Save"
 metadata/_edit_use_anchors_ = true
 
@@ -203,4 +221,5 @@ metadata/_edit_use_anchors_ = true
 [connection signal="pressed" from="Panel/HeadersScrollContainer2/VBoxContainer/Body_HBoxContainer/Del_Body" to="Panel/HeadersScrollContainer2/VBoxContainer/Body_HBoxContainer/Del_Body" method="_on_pressed"]
 [connection signal="pressed" from="Panel/HeadersScrollContainer2/VBoxContainer/Add_Body" to="Panel/HeadersScrollContainer2/VBoxContainer/Add_Body" method="_on_pressed"]
 [connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
+[connection signal="focus_exited" from="Panel/HTTP_Method" to="Panel/HTTP_Method" method="_on_focus_exited"]
 [connection signal="pressed" from="Panel/Save" to="." method="_on_save_pressed"]

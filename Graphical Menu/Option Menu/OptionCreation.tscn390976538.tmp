@@ -1,0 +1,226 @@
+[gd_scene load_steps=7 format=3 uid="uid://djdv1pegtti64"]
+
+[ext_resource type="Script" uid="uid://dofun55g4amuk" path="res://Graphical Menu/Option Menu/option_creation.gd" id="1_q7ujx"]
+[ext_resource type="Script" uid="uid://dmmb85kdaxg67" path="res://Graphical Menu/Option Menu/Header/del_header.gd" id="2_8osde"]
+[ext_resource type="Script" uid="uid://cufnf3iub8475" path="res://Graphical Menu/Option Menu/Header/add_header.gd" id="2_bc22x"]
+[ext_resource type="Script" uid="uid://g3wa0qw6i1mk" path="res://Graphical Menu/Option Menu/Body/del_body.gd" id="4_qingp"]
+[ext_resource type="Script" uid="uid://clx4xqaf015d2" path="res://Graphical Menu/Option Menu/Body/add_body.gd" id="5_e6k11"]
+[ext_resource type="Script" uid="uid://k60gs1iwwe5q" path="res://Graphical Menu/Option Menu/http_method.gd" id="6_e6k11"]
+
+[node name="OptionCreation" type="Window"]
+title = "Search Creation"
+initial_position = 2
+size = Vector2i(810, 535)
+unresizable = true
+always_on_top = true
+popup_window = true
+script = ExtResource("1_q7ujx")
+metadata/_edit_horizontal_guides_ = [61.0]
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 450)
+anchors_preset = -1
+anchor_left = -0.00123457
+anchor_right = -0.00123457
+anchor_bottom = 0.188889
+offset_left = -2.0
+offset_right = 814.0
+offset_bottom = 450.0
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Description" type="TextEdit" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013
+anchor_top = 0.679
+anchor_right = 0.598
+anchor_bottom = 0.878
+offset_left = 0.392
+offset_top = -0.166779
+offset_right = 0.0319519
+offset_bottom = 0.173157
+theme_override_font_sizes/font_size = 10
+placeholder_text = "Description"
+metadata/_edit_use_anchors_ = true
+
+[node name="Result" type="CodeEdit" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.609
+anchor_top = 0.02
+anchor_right = 0.984
+anchor_bottom = 0.878
+offset_left = 0.0559692
+offset_top = -0.0211143
+offset_right = 0.0559692
+offset_bottom = 0.173401
+theme_override_font_sizes/font_size = 10
+placeholder_text = "Result of your request"
+editable = false
+wrap_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HeadersScrollContainer" type="ScrollContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 42.0
+offset_right = 488.0
+offset_bottom = 195.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HeadersScrollContainer"]
+custom_minimum_size = Vector2(475, 0)
+layout_mode = 2
+
+[node name="Header_HBoxContainer" type="HBoxContainer" parent="Panel/HeadersScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Headers" type="TextEdit" parent="Panel/HeadersScrollContainer/VBoxContainer/Header_HBoxContainer"]
+custom_minimum_size = Vector2(455, 25)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+placeholder_text = "Headers"
+scroll_past_end_of_file = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Del_Header" type="Button" parent="Panel/HeadersScrollContainer/VBoxContainer/Header_HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "X"
+script = ExtResource("2_8osde")
+
+[node name="Add_Header" type="Button" parent="Panel/HeadersScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "+ Add Header"
+script = ExtResource("2_bc22x")
+
+[node name="HeadersScrollContainer2" type="ScrollContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 207.0
+offset_right = 488.0
+offset_bottom = 360.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HeadersScrollContainer2"]
+custom_minimum_size = Vector2(475, 0)
+layout_mode = 2
+
+[node name="Body_HBoxContainer" type="HBoxContainer" parent="Panel/HeadersScrollContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Key" type="TextEdit" parent="Panel/HeadersScrollContainer2/VBoxContainer/Body_HBoxContainer"]
+custom_minimum_size = Vector2(150, 25)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+placeholder_text = "Key"
+scroll_past_end_of_file = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Value" type="TextEdit" parent="Panel/HeadersScrollContainer2/VBoxContainer/Body_HBoxContainer"]
+custom_minimum_size = Vector2(300, 25)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+placeholder_text = "Value"
+scroll_past_end_of_file = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Del_Body" type="Button" parent="Panel/HeadersScrollContainer2/VBoxContainer/Body_HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "X"
+script = ExtResource("4_qingp")
+
+[node name="Add_Body" type="Button" parent="Panel/HeadersScrollContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "+ Add Body"
+script = ExtResource("5_e6k11")
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.200509
+anchor_bottom = 0.200509
+offset_left = 497.0
+offset_top = 385.0
+offset_right = 803.0
+offset_bottom = 416.0
+text = "Send a test request"
+metadata/_edit_use_anchors_ = true
+
+[node name="Url" type="TextEdit" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.012
+anchor_top = 0.016
+anchor_right = 0.469324
+anchor_bottom = 0.06
+offset_left = 0.208
+offset_top = 0.183105
+offset_right = 0.0319519
+offset_bottom = -0.063343
+theme_override_font_sizes/font_size = 10
+placeholder_text = "Url from your API"
+scroll_past_end_of_file = true
+metadata/_edit_use_anchors_ = true
+
+[node name="HTTP_Method" type="LineEdit" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.353
+anchor_top = -15.71
+anchor_right = -0.039
+anchor_bottom = -14.903
+offset_left = 677.048
+offset_top = 8665.08
+offset_right = 516.824
+offset_bottom = 8245.38
+theme_override_colors/font_color = Color(0.101563, 1, 0, 1)
+theme_override_font_sizes/font_size = 12
+placeholder_text = "HTTP Method"
+script = ExtResource("6_e6k11")
+
+[node name="Name" type="TextEdit" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.091
+anchor_top = 0.901
+anchor_right = 0.596
+anchor_bottom = 0.955
+offset_left = -0.256004
+offset_top = -0.00949097
+offset_right = -0.335999
+offset_bottom = 0.233459
+theme_override_font_sizes/font_size = 14
+placeholder_text = "Name"
+wrap_mode = 1
+scroll_past_end_of_file = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Save" type="Button" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.015
+anchor_top = 0.899
+anchor_right = 0.081
+anchor_bottom = 0.955
+offset_left = -0.240001
+offset_top = 0.0925903
+offset_right = -0.0960007
+offset_bottom = 0.233459
+text = "Save"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="Panel/HeadersScrollContainer/VBoxContainer/Header_HBoxContainer/Del_Header" to="Panel/HeadersScrollContainer/VBoxContainer/Header_HBoxContainer/Del_Header" method="_on_pressed"]
+[connection signal="pressed" from="Panel/HeadersScrollContainer/VBoxContainer/Add_Header" to="Panel/HeadersScrollContainer/VBoxContainer/Add_Header" method="_on_pressed"]
+[connection signal="pressed" from="Panel/HeadersScrollContainer2/VBoxContainer/Body_HBoxContainer/Del_Body" to="Panel/HeadersScrollContainer2/VBoxContainer/Body_HBoxContainer/Del_Body" method="_on_pressed"]
+[connection signal="pressed" from="Panel/HeadersScrollContainer2/VBoxContainer/Add_Body" to="Panel/HeadersScrollContainer2/VBoxContainer/Add_Body" method="_on_pressed"]
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
+[connection signal="focus_exited" from="Panel/HTTP_Method" to="Panel/HTTP_Method" method="_on_focus_exited"]
+[connection signal="pressed" from="Panel/Save" to="." method="_on_save_pressed"]

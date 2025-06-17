@@ -1,13 +1,14 @@
 class_name Search_Input
 
 
-static func save_api_search(name, description, url, headers, body) -> bool:
+static func save_api_search(name, description, url, headers, body, method) -> bool:
 	print("[*] Save search process")
 
 	var json_data = {
 		"name": str(name),
 		"description": str(description),
 		"url": str(url),
+		"method": str(method),
 		"headers": headers,
 		"body": body
 		}

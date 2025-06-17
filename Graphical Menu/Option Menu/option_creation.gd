@@ -37,14 +37,14 @@ func _handle_function_request(func_to_call: Callable, callback: Callable):
 func _on_button_pressed() -> void:
 	print($Panel/Url.text)
 	$Panel/Result.placeholder_text = "Request is sending, please wait..."
-	var result = await Request.POST($".", $Panel/Url.text, _headers_as_list(), _body_as_dict(), null)
+	var result = await Request._REQUEST_METHOD($".", $Panel/Url.text, _headers_as_list(), _body_as_dict(), $Panel/HTTP_Method.text ,null)
 	print(result)
 	$Panel/Result.placeholder_text = str(result)
 
 
 func _on_save_pressed() -> void:
 	print("Saved button")
-	Search_Input.save_api_search($Panel/Name.text, $Panel/Description.text, $Panel/Url.text, _headers_as_list(), _body_as_dict())
+	Search_Input.save_api_search($Panel/Name.text, $Panel/Description.text, $Panel/Url.text, _headers_as_list(), _body_as_dict(), $Panel/HTTP_Method.text)
 
 
 func _on_close_pressed() -> void:
