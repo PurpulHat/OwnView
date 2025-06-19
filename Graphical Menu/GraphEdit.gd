@@ -17,9 +17,6 @@ func _on_button_pressed() -> void:
 	node_instance.title = "Input("+str(a)+")"
 	$GraphEdit.add_child(node_instance)
 	Node_Tools.option_button(node_instance)
-	
-func _on_graph_edity_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
-	$GraphEdit.connect_node(from_node, from_port, to_node, to_port)
 
 
 func _on_graph_edit_connection_to_empty(from_node: StringName, from_port: int, release_position: Vector2) -> void:

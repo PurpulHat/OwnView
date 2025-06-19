@@ -15,6 +15,7 @@ config/tags=PackedStringArray("osint")
 run/main_scene="res://Graphical Menu/Graphic.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="uid://l2ig7bdjwv22"
+config/windows_native_icon="res://Img/OwnViewLogo.ico"
 
 [autoload]
 
@@ -28,3 +29,4 @@ network_mode=false
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

@@ -21,7 +21,6 @@ static func save_api_search(name, description, url, headers, body, method) -> bo
 		print("Not a Dictionary in Body")
 		return false
 
-
 	var json_string = JSON.stringify(json_data, "\t")
 
 	var save_path = str(OS.get_executable_path().get_base_dir(),"/Input Saved/",name,".json")
@@ -36,9 +35,9 @@ static func save_api_search(name, description, url, headers, body, method) -> bo
 			FileAccess.get_open_error()
 		])
 		return false
-	
+
 	file.store_string(json_string)
 	file.close()
-	
+
 	print("Saved on ", save_path)
 	return true
