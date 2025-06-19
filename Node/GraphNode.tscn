@@ -5,8 +5,10 @@ script/source = "extends GraphNode
 
 var slot_count: int = 0
 
+
 func _ready() -> void:
-	connect(\"child_entered_tree\", _on_child_added)
+	child_entered_tree.connect(_on_child_added)
+
 
 
 func _on_child_added(child: Node) -> void:
@@ -28,6 +30,17 @@ func _on_child_added(child: Node) -> void:
 	slot_count += 1
 
 
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.keycode == KEY_BACKSPACE and event.pressed and not event.echo:
+			if is_selected():
+				queue_free() 
+
+
+
+
 func _on_delete_request() -> void:
 	queue_free()
 "
@@ -44,3 +57,4 @@ metadata/Exist = false
 
 [connection signal="delete_request" from="." to="." method="_on_delete_request"]
 [connection signal="resize_request" from="." to="." method="_on_resize_request"]
+[connection signal="slot_updated" from="." to="." method="_on_slot_updated"]

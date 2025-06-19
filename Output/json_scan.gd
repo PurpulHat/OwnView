@@ -19,6 +19,7 @@ var check_label_key = null
 var grand_mother_verif = null
 var search_node_index = null
 var search_node_name = null
+var search_point = null
 
 
 func _ready() -> void:
@@ -36,7 +37,7 @@ func _on_pressed() -> void:
 	a += 1
 	node_instance.name = str(a)
 	node_instance.title = str(a)
-	$"../GraphEdit".add_child(node_instance)
+	%GraphEdit.add_child(node_instance)
 
 
 
@@ -52,7 +53,6 @@ func get_value_key(json = Node_Tools.json_data, mother = "Master"):
 			Node_Tools.check_list.append(get_key)
 			get_value_key(inside_key, Node_Tools.check_same_name(get_key, Node_Tools.check_list))
 
-
 		elif inside_key is Array:
 			for value in inside_key:
 				if value is not String:
@@ -62,7 +62,6 @@ func get_value_key(json = Node_Tools.json_data, mother = "Master"):
 				else:
 					Node_Tools.check_list.append(get_key)
 					create_or_add(mother, value, Node_Tools.check_same_name(get_key, Node_Tools.check_list))
-
 
 		else:
 			Node_Tools.check_list.append(get_key)
@@ -76,7 +75,7 @@ func get_value_key(json = Node_Tools.json_data, mother = "Master"):
 # Insert option choice on Key and Value menu button
 func _insert_option(button, value, mother):
 	var menu_option = button.get_popup()
-	var child_mother_node = $"../GraphEdit".get_node(str(mother))
+	var child_mother_node = %GraphEdit.get_node(str(mother))
 	var child_node = child_mother_node.get_node(str(Sanitize._for_name(value)))
 	
 	if child_node:
@@ -92,6 +91,7 @@ func _insert_option(button, value, mother):
 			1: # New search
 				grand_mother = "Master"
 				search_node_name = child_mother_node.name
+				search_point = child_node.text
 				search_node_index = child_node.get_index()
 
 				var OptionChoice = Option_Choice_Node.instantiate()
@@ -101,7 +101,7 @@ func _insert_option(button, value, mother):
 				GlobalSignal.api_request.connect(func(api):
 					await Request._REQUEST_METHOD(self, api["url"], api["headers"], api["body"], api["method"], value)
 					await get_value_key(Node_Tools.json_data, Node_Tools.check_same_name(child_node.name, Node_Tools.check_list))
-					$"../GraphEdit".connect_node(Sanitize._for_name(mother), child_node.get_index()-1, Sanitize._for_name(child_node.name) ,0)
+					%GraphEdit.connect_node(Sanitize._for_name(mother), child_node.get_index()-1, Sanitize._for_name(child_node.name) ,0)
 				)
 			2: #Delet Link
 				pass
@@ -142,7 +142,7 @@ func create_new_input(mother, value, index):
 	Node_Tools.option_button(node_instance)
 	node_instance.name = str("Input From: ", mother)
 	node_instance.title = str("Input From: ", mother)
-	$"../GraphEdit".add_child(node_instance)
+	%GraphEdit.add_child(node_instance)
 	
 	var VSplit = VSplitContainer.new()
 	var Separator = HSeparator.new()
@@ -153,10 +153,10 @@ func create_new_input(mother, value, index):
 	VSplit.add_child(title)
 	VSplit.add_child(Separator)
 	
-	$"../GraphEdit".connect_node(mother, int(index-2), node_instance.get_name(),0)
+	%GraphEdit.connect_node(mother, int(index-2), node_instance.get_name(),0)
 	
 	_insert_value(node_instance, value, mother)
-	$"../GraphEdit".arrange_nodes()
+	%GraphEdit.arrange_nodes()
 
 
 
@@ -164,11 +164,11 @@ func create_new_input(mother, value, index):
 func create_or_add(mother, value, key):
 	a += 1
 	# Verify if NOT a Node with the same name exist
-	if not $"../GraphEdit".has_node(str(Sanitize._for_name(mother))):
+	if not %GraphEdit.has_node(str(Sanitize._for_name(mother))):
 		var node_instance = Graph_Node.instantiate()
 		node_instance.name = str(mother)
-		node_instance.title = str(mother)
-		$"../GraphEdit".add_child(node_instance)
+		node_instance.title = search_point + " : " + str(mother)
+		%GraphEdit.add_child(node_instance)
 
 		var VSplit = VSplitContainer.new()
 		var Separator = HSeparator.new()
@@ -179,7 +179,7 @@ func create_or_add(mother, value, key):
 		if grand_mother == "Master":
 			title.text = grand_mother
 			grand_mother_count += 1
-			grand_mother = grand_mother + str("(") + str(grand_mother_count) + str(")")
+			grand_mother = grand_mother + "(" + str(grand_mother_count) + ")"
 			master = grand_mother
 		else:
 			title.text = str("Child of : ") + str(grand_mother)
@@ -200,19 +200,19 @@ func create_or_add(mother, value, key):
 		var menu_value = MenuButton.new()
 		
 		if grand_mother_verif == grand_mother:
-			$"../GraphEdit".connect_node(Sanitize._for_name(grand_mother), 0, Sanitize._for_name(mother), 0)
+			%GraphEdit.connect_node(Sanitize._for_name(grand_mother), 0, Sanitize._for_name(mother), 0)
 		else:
-			$"../GraphEdit".connect_node(search_node_name, search_node_index-1, Sanitize._for_name(mother), 0)
+			%GraphEdit.connect_node(search_node_name, search_node_index-1, Sanitize._for_name(mother), 0)
 
 		grand_mother_verif = mother
 		# Connect the nodes
 		#$"../GraphEdit".connect_node(Sanitize._for_name(grand_mother), 0, Sanitize._for_name(mother), 0)
-		await get_tree().create_timer(0.5).timeout
-		$"../GraphEdit".arrange_nodes()
+		await get_tree().create_timer(0.1).timeout
+		%GraphEdit.arrange_nodes()
 
 	else:
 		# If a Node with the same name exist, it's add label on it
-		var node_instance = $"../GraphEdit".get_node(str(Sanitize._for_name(mother)))
+		var node_instance = %GraphEdit.get_node(str(Sanitize._for_name(mother)))
 
 		# Create Label for your key
 		if check_label_key != key:
@@ -221,7 +221,3 @@ func create_or_add(mother, value, key):
 
 		# Create Label for your value
 		_insert_value(node_instance, value, mother)
-	
-
-
-	
