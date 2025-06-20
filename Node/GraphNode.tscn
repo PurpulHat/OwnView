@@ -10,7 +10,6 @@ func _ready() -> void:
 	child_entered_tree.connect(_on_child_added)
 
 
-
 func _on_child_added(child: Node) -> void:
 	match slot_count:
 		0:

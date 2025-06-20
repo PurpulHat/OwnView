@@ -5,28 +5,18 @@
 extends Node
 
 var check_parent = {}
-var a = -1
-var grand_mother_count = 0
-var grand_mother = "Master"
+
 var Graph_Node = load("res://Node/GraphNode.tscn")
-var Option_Choice_Node = load("res://Graphical Menu/Option Menu/OptionChoice.tscn")
 var node_instance = Graph_Node.instantiate()
 var input_scene = preload("res://Node/User_Input/Input.tscn")
 var input_instance = input_scene.instantiate()
 
-var master = null
-var check_label_key = null 
-var grand_mother_verif = null
-var search_node_index = null
-var search_node_name = null
-var search_point = null
 
 
 func _ready() -> void:
 	GlobalSignal.input_triggered.connect(
 		func(_on_InputClosed): 
-			_insert_value(Node_Tools.menu_parent_node, _on_InputClosed, Node_Tools.menu_parent_node.name))
-
+			Node_Tools._insert_value($".", %GraphEdit, Node_Tools.menu_parent_node, _on_InputClosed, Node_Tools.menu_parent_node.name))
 
 
 
@@ -34,9 +24,9 @@ func _ready() -> void:
 func _on_pressed() -> void:
 	get_value_key(Node_Tools.json_data)
 	
-	a += 1
-	node_instance.name = str(a)
-	node_instance.title = str(a)
+	Node_Tools.a += 1
+	node_instance.name = str(Node_Tools.a)
+	node_instance.title = str(Node_Tools.a)
 	%GraphEdit.add_child(node_instance)
 
 
@@ -67,107 +57,19 @@ func get_value_key(json = Node_Tools.json_data, mother = "Master"):
 			Node_Tools.check_list.append(get_key)
 			create_or_add(mother, Node_Tools.check_same_name(inside_key, Node_Tools.check_list), get_key)
 
-	grand_mother = mother
+	Node_Tools.grand_mother = mother
 
-
-
-
-# Insert option choice on Key and Value menu button
-func _insert_option(button, value, mother):
-	var menu_option = button.get_popup()
-	var child_mother_node = %GraphEdit.get_node(str(mother))
-	var child_node = child_mother_node.get_node(str(Sanitize._for_name(value)))
-	
-	if child_node:
-		menu_option.add_item(str("New node from \"",value,"\""))
-		menu_option.add_item(str("New search from \"",value,"\""))
-		menu_option.add_item("Delet Link")
-	
-	menu_option.id_pressed.connect(func(id): 
-		match id:
-			0: # New node
-				create_new_input(mother, value, child_node.get_index())
-
-			1: # New search
-				grand_mother = "Master"
-				search_node_name = child_mother_node.name
-				search_point = child_node.text
-				search_node_index = child_node.get_index()
-
-				var OptionChoice = Option_Choice_Node.instantiate()
-				add_child(OptionChoice)
-				OptionChoice.popup_centered()
-
-				GlobalSignal.api_request.connect(func(api):
-					await Request._REQUEST_METHOD(self, api["url"], api["headers"], api["body"], api["method"], value)
-					await get_value_key(Node_Tools.json_data, Node_Tools.check_same_name(child_node.name, Node_Tools.check_list))
-					%GraphEdit.connect_node(Sanitize._for_name(mother), child_node.get_index()-1, Sanitize._for_name(child_node.name) ,0)
-				)
-			2: #Delet Link
-				pass
-	)
-
-
-
-
-func _insert_value(node_instance, value, mother):
-	var menu_value = MenuButton.new()
-	menu_value.text = str(value)
-	menu_value.name = str(value)
-	menu_value.alignment = HORIZONTAL_ALIGNMENT_LEFT
-	node_instance.add_child(menu_value)
-	menu_value.set_meta("slot_number", a)
-	
-	_insert_option(menu_value, value, mother)
-
-
-
-
-func _insert_key(node_instance, key, mother):
-	var menu_key = MenuButton.new()
-	menu_key.text = str(key) + str(":")
-	menu_key.name = str(key)
-	menu_key.modulate = Color(0.8, 0.8, 0.8)
-	node_instance.add_child(menu_key)
-	check_label_key = key
-	menu_key.set_meta("slot_number", a)
-	
-	_insert_option(menu_key, key, mother)
-
-
-
-
-func create_new_input(mother, value, index):
-	var node_instance = Graph_Node.instantiate()
-	Node_Tools.option_button(node_instance)
-	node_instance.name = str("Input From: ", mother)
-	node_instance.title = str("Input From: ", mother)
-	%GraphEdit.add_child(node_instance)
-	
-	var VSplit = VSplitContainer.new()
-	var Separator = HSeparator.new()
-	var title = MenuButton.new()
-	title.text = str("User input")
-	title.modulate = Color(0.8, 0.8, 0.8)
-	node_instance.add_child(VSplit)
-	VSplit.add_child(title)
-	VSplit.add_child(Separator)
-	
-	%GraphEdit.connect_node(mother, int(index-2), node_instance.get_name(),0)
-	
-	_insert_value(node_instance, value, mother)
-	%GraphEdit.arrange_nodes()
 
 
 
 
 func create_or_add(mother, value, key):
-	a += 1
+	Node_Tools.a += 1
 	# Verify if NOT a Node with the same name exist
 	if not %GraphEdit.has_node(str(Sanitize._for_name(mother))):
 		var node_instance = Graph_Node.instantiate()
 		node_instance.name = str(mother)
-		node_instance.title = search_point + " : " + str(mother)
+		node_instance.title = Node_Tools.search_point + " : " + str(mother)
 		%GraphEdit.add_child(node_instance)
 
 		var VSplit = VSplitContainer.new()
@@ -176,13 +78,13 @@ func create_or_add(mother, value, key):
 
 		Node_Tools.option_button(node_instance)
 
-		if grand_mother == "Master":
-			title.text = grand_mother
-			grand_mother_count += 1
-			grand_mother = grand_mother + "(" + str(grand_mother_count) + ")"
-			master = grand_mother
+		if Node_Tools.grand_mother == "Master":
+			title.text = Node_Tools.grand_mother
+			Node_Tools.grand_mother_count += 1
+			Node_Tools.grand_mother = Node_Tools.grand_mother + "(" + str(Node_Tools.grand_mother_count) + ")"
+			Node_Tools.master = Node_Tools.grand_mother
 		else:
-			title.text = str("Child of : ") + str(grand_mother)
+			title.text = str("Child of : ") + str(Node_Tools.grand_mother)
 
 		title.modulate = Color(0.8, 0.8, 0.8)
 
@@ -192,19 +94,19 @@ func create_or_add(mother, value, key):
 		VSplit.add_child(Separator)
 
 		# Create Label for your key
-		if check_label_key != key:
+		if Node_Tools.check_label_key != key:
 			# Verify if key's name don't already exist
-			_insert_key(node_instance, key, mother)
+			Node_Tools._insert_key($".", %GraphEdit, node_instance, key, mother)
 
 		# Create Label for your value
 		var menu_value = MenuButton.new()
 		
-		if grand_mother_verif == grand_mother:
-			%GraphEdit.connect_node(Sanitize._for_name(grand_mother), 0, Sanitize._for_name(mother), 0)
+		if Node_Tools.grand_mother_verif == Node_Tools.grand_mother:
+			%GraphEdit.connect_node(Sanitize._for_name(Node_Tools.grand_mother), 0, Sanitize._for_name(mother), 0)
 		else:
-			%GraphEdit.connect_node(search_node_name, search_node_index-1, Sanitize._for_name(mother), 0)
+			%GraphEdit.connect_node(Node_Tools.search_node_name, Node_Tools.search_node_index-1, Sanitize._for_name(mother), 0)
 
-		grand_mother_verif = mother
+		Node_Tools.grand_mother_verif = mother
 		# Connect the nodes
 		#$"../GraphEdit".connect_node(Sanitize._for_name(grand_mother), 0, Sanitize._for_name(mother), 0)
 		await get_tree().create_timer(0.1).timeout
@@ -215,9 +117,9 @@ func create_or_add(mother, value, key):
 		var node_instance = %GraphEdit.get_node(str(Sanitize._for_name(mother)))
 
 		# Create Label for your key
-		if check_label_key != key:
+		if Node_Tools.check_label_key != key:
 			# Verify if key's name don't already exist
-			_insert_key(node_instance, key, mother)
+			Node_Tools._insert_key($".", %GraphEdit, node_instance, key, mother)
 
 		# Create Label for your value
-		_insert_value(node_instance, value, mother)
+		Node_Tools._insert_value($".", %GraphEdit,node_instance, value, mother)

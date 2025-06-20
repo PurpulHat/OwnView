@@ -1,7 +1,7 @@
 [gd_scene load_steps=39 format=3 uid="uid://dhdpb8va8errc"]
 
 [ext_resource type="Script" uid="uid://byw47sl5vjit0" path="res://Graphical Menu/GraphEdit.gd" id="1_4kviu"]
-[ext_resource type="Script" uid="uid://buxkvtkh2cq4v" path="res://Graphical Menu/menu_right_click.gd" id="2_nj626"]
+[ext_resource type="Script" uid="uid://buxkvtkh2cq4v" path="res://Graphical Menu/graphic.gd" id="2_nj626"]
 [ext_resource type="Script" uid="uid://dl4myahbj3do2" path="res://Output/json_scan.gd" id="3_cq6v4"]
 [ext_resource type="Script" uid="uid://cjwu2q2nry5it" path="res://Graphical Menu/Graphical Tools/clear.gd" id="3_jk6iy"]
 [ext_resource type="Texture2D" uid="uid://b3h4yq6yjs3fp" path="res://Img/add-request.svg" id="3_qcpqu"]
@@ -310,6 +310,29 @@ vertical_icon_alignment = 0
 expand_icon = true
 script = ExtResource("3_jk6iy")
 
+[node name="VSeparator4" type="VSeparator" parent="Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Sauvegarde"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = ExtResource("3_jk6iy")
+
+[node name="Load" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Load"
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = ExtResource("3_jk6iy")
+
 [node name="Visible" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 1
@@ -340,4 +363,6 @@ script = ExtResource("4_fk8tm")
 [connection signal="changed" from="Panel/HBoxContainer/VBoxContainer2/HBoxContainer/SappingSpinBox" to="Panel/HBoxContainer/VBoxContainer2/HBoxContainer/SappingSpinBox" method="_on_changed"]
 [connection signal="value_changed" from="Panel/HBoxContainer/VBoxContainer2/HBoxContainer/SappingSpinBox" to="Panel/HBoxContainer/VBoxContainer2/HBoxContainer/SappingSpinBox" method="_on_value_changed"]
 [connection signal="pressed" from="Panel/HBoxContainer/Clear Graph" to="Panel/HBoxContainer/Clear Graph" method="_on_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Save" to="GraphEdit" method="_on_save_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Load" to="GraphEdit" method="_on_load_pressed"]
 [connection signal="pressed" from="Visible" to="Visible" method="_on_pressed"]

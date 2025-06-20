@@ -3,8 +3,8 @@ extends Panel
 var a = 0
 
 var Menu_Right_Click_exist = false
-var Graph_Node = preload("res://Node/GraphNode.tscn")
-var Menu_Right_Click = preload("res://right_click.tscn")
+const Graph_Node = preload("res://Node/GraphNode.tscn")
+const Menu_Right_Click = preload("res://right_click.tscn")
 var Menu_Right_Click_instance = null
 
 # Get script from json_scan
