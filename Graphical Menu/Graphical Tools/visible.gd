@@ -5,8 +5,8 @@ func _on_pressed() -> void:
 		true:
 			$"../Panel".visible = false
 			#$"../GraphEdit".show_menu = false
-			$"../Add Node".visible = false
+			$"../Panel/HBoxContainer/Add Node".visible = false
 		false:
 			$"../Panel".visible = true
-			$"../GraphEdit".show_menu = true
-			$"../Add Node".visible = true
+			#$"../GraphEdit".show_menu = true
+			$"../Panel/HBoxContainer/Add Node".visible = true

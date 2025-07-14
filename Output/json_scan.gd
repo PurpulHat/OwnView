@@ -1,7 +1,3 @@
-###
-## Description :
-## Information : Ugly as fuck, I really need to clean this mess.
-###
 extends Node
 
 var check_parent = {}
@@ -11,6 +7,7 @@ var node_instance = Graph_Node.instantiate()
 var input_scene = preload("res://Node/User_Input/Input.tscn")
 var input_instance = input_scene.instantiate()
 
+var grand_mother_less_unix = null
 
 
 func _ready() -> void:
@@ -18,17 +15,9 @@ func _ready() -> void:
 		func(_on_InputClosed): 
 			Node_Tools._insert_value($".", %GraphEdit, Node_Tools.menu_parent_node, _on_InputClosed, Node_Tools.menu_parent_node.name))
 
-
-
-# When "Add node from JSON" is pressed
-func _on_pressed() -> void:
-	get_value_key(Node_Tools.json_data)
-	
-	Node_Tools.a += 1
-	node_instance.name = str(Node_Tools.a)
-	node_instance.title = str(Node_Tools.a)
-	%GraphEdit.add_child(node_instance)
-
+	GlobalSignal.json_output.connect(
+		func(json_output):
+			get_value_key(json_output))
 
 
 
@@ -57,22 +46,26 @@ func get_value_key(json = Node_Tools.json_data, mother = "Master"):
 			Node_Tools.check_list.append(get_key)
 			create_or_add(mother, Node_Tools.check_same_name(inside_key, Node_Tools.check_list), get_key)
 
-	Node_Tools.grand_mother = mother
-
+	Node_Tools.grand_mother = str(mother,Node_Tools.unix_time)
+	grand_mother_less_unix = mother
 
 
 
 
 func create_or_add(mother, value, key):
 	Node_Tools.a += 1
+	var mother_less_unix = mother
+	mother = str(mother,Node_Tools.unix_time)
+
 	# Verify if NOT a Node with the same name exist
 	if not %GraphEdit.has_node(str(Sanitize._for_name(mother))):
 		var node_instance = Graph_Node.instantiate()
+		node_instance.set_meta("new", true)
 		node_instance.name = str(mother)
-		node_instance.title = Node_Tools.search_point + " : " + str(mother)
+		node_instance.title = Node_Tools.search_point + " : " + str(mother_less_unix)
 		%GraphEdit.add_child(node_instance)
+		node_instance.set_meta("mother", str(mother,Node_Tools.unix_time))
 
-		var VSplit = VSplitContainer.new()
 		var Separator = HSeparator.new()
 		var title = MenuButton.new()
 
@@ -80,18 +73,14 @@ func create_or_add(mother, value, key):
 
 		if Node_Tools.grand_mother == "Master":
 			title.text = Node_Tools.grand_mother
-			Node_Tools.grand_mother_count += 1
-			Node_Tools.grand_mother = Node_Tools.grand_mother + "(" + str(Node_Tools.grand_mother_count) + ")"
 			Node_Tools.master = Node_Tools.grand_mother
 		else:
-			title.text = str("Child of : ") + str(Node_Tools.grand_mother)
+			title.text = str("Child of : ") + str(grand_mother_less_unix)
 
 		title.modulate = Color(0.8, 0.8, 0.8)
 
-		node_instance.add_child(VSplit)
-
-		VSplit.add_child(title)
-		VSplit.add_child(Separator)
+		node_instance.add_child(title)
+		node_instance.add_child(Separator)
 
 		# Create Label for your key
 		if Node_Tools.check_label_key != key:
@@ -101,6 +90,7 @@ func create_or_add(mother, value, key):
 		# Create Label for your value
 		var menu_value = MenuButton.new()
 		
+
 		if Node_Tools.grand_mother_verif == Node_Tools.grand_mother:
 			%GraphEdit.connect_node(Sanitize._for_name(Node_Tools.grand_mother), 0, Sanitize._for_name(mother), 0)
 		else:
@@ -108,14 +98,12 @@ func create_or_add(mother, value, key):
 
 		Node_Tools.grand_mother_verif = mother
 		# Connect the nodes
-		#$"../GraphEdit".connect_node(Sanitize._for_name(grand_mother), 0, Sanitize._for_name(mother), 0)
 		await get_tree().create_timer(0.1).timeout
-		%GraphEdit.arrange_nodes()
+		await Node_Tools.clean_arrange_node(%GraphEdit)
 
 	else:
 		# If a Node with the same name exist, it's add label on it
 		var node_instance = %GraphEdit.get_node(str(Sanitize._for_name(mother)))
-
 		# Create Label for your key
 		if Node_Tools.check_label_key != key:
 			# Verify if key's name don't already exist

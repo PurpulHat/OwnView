@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c67aravj5pww7"]
+
+[ext_resource type="Script" uid="uid://bt0u6fwsmsvnb" path="res://Graphical Menu/Option Menu/option_load.gd" id="1_n7ctq"]
+
+[node name="OptionLoad" type="FileDialog"]
+title = "Open a File or Directory"
+initial_position = 2
+visible = true
+ok_button_text = "Select This Folder"
+file_mode = 3
+access = 2
+show_hidden_files = true
+script = ExtResource("1_n7ctq")
+
+[connection signal="file_selected" from="." to="." method="_on_file_selected"]

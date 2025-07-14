@@ -25,5 +25,4 @@ func _load_data(data):
 func _on_use_selected_pressed() -> void:
 	var data = load_data(item_path)
 	GlobalSignal.emit_signal("api_request", data)
-	print(load_data(item_path)["url"],load_data(item_path)["headers"])
 	$"../..".queue_free()

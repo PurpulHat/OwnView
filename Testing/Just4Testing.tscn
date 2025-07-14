@@ -4,6 +4,10 @@
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -66.0
+offset_top = 1.0
+offset_right = -66.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -17,3 +21,11 @@ mouse_filter = 1
 position_offset = Vector2(119, 124)
 
 [node name="PopupMenu" type="PopupMenu" parent="."]
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 574.0
+offset_top = 183.0
+offset_right = 779.0
+offset_bottom = 219.0
+text = "TEST"

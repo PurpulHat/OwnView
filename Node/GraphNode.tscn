@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dj75tje62lgl2"]
+[gd_scene load_steps=3 format=3 uid="uid://dj75tje62lgl2"]
+
+[ext_resource type="Theme" uid="uid://e3cxbkotu2se" path="res://Theme/OwnView.tres" id="1_xjxmx"]
 
 [sub_resource type="GDScript" id="GDScript_ws2j7"]
 script/source = "extends GraphNode
@@ -18,6 +20,10 @@ func _on_child_added(child: Node) -> void:
 			return
 		1:
 			set_slot(slot_count, true, 1, Color.DIM_GRAY, true, 1, Color.DIM_GRAY)
+			slot_count += 1
+			return
+		2:
+			set_slot(slot_count, false, 0, Color.DIM_GRAY, false, 0, Color.DIM_GRAY)
 			slot_count += 1
 			return
 
@@ -40,17 +46,31 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 
+func _refresh_slot():
+	slot_count = 0
+	for value in get_children():
+		if value.visible == true:
+			set_slot(slot_count, false, 0, Color.DIM_GRAY, false, 0, Color.DIM_GRAY)
+			slot_count += 1
+		else:
+			set_slot(slot_count, false, 0, Color.DIM_GRAY, false, 0, Color.DIM_GRAY)
+
+
+
+
 func _on_delete_request() -> void:
 	queue_free()
 "
 
-[node name="GraphNode" type="GraphNode"]
-offset_left = 15.0
+[node name="User_Input" type="GraphNode"]
+offset_left = 19.0
 offset_top = 17.0
-offset_right = 237.0
+offset_right = 241.0
 offset_bottom = 72.0
+theme = ExtResource("1_xjxmx")
 resizable = true
-title = "Input"
+title = "User Input"
+ignore_invalid_connection_type = true
 script = SubResource("GDScript_ws2j7")
 metadata/Exist = false
 

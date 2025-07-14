@@ -15,8 +15,10 @@ func _on_button_pressed() -> void:
 	a += 1
 	node_instance.name = str(a)
 	node_instance.title = "Input("+str(a)+")"
+	node_instance.set_meta("mother", str(a))
 	$GraphEdit.add_child(node_instance)
 	Node_Tools.option_button(node_instance)
+	
 
 
 func _on_graph_edit_connection_to_empty(from_node: StringName, from_port: int, release_position: Vector2) -> void:

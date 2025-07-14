@@ -6,6 +6,13 @@ static var response = "Failed"
 
 
 static func _REQUEST_METHOD(self_node, url, headers, body, method, value):
+	for child in self_node.get_children():
+		if child is HTTPRequest:
+			child.queue_free()
+	
+	Node_Tools.unix_time = Time.get_unix_time_from_system()
+	Node_Tools.reset_state()
+	
 	match method:
 		"POST":
 			return await POST(self_node, url, headers, body, value)
