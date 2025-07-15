@@ -14,8 +14,9 @@ func _on_button_pressed() -> void:
 	var node_instance = Graph_Node.instantiate()
 	a += 1
 	node_instance.name = str(a)
-	node_instance.title = "Input("+str(a)+")"
+	node_instance.title = "User Input"
 	node_instance.set_meta("mother", str(a))
+	node_instance.set_meta("user_input", true)
 	$GraphEdit.add_child(node_instance)
 	Node_Tools.option_button(node_instance)
 	

@@ -5,28 +5,43 @@
 [sub_resource type="GDScript" id="GDScript_ws2j7"]
 script/source = "extends GraphNode
 
-var slot_count: int = 0
-
+var slot_count : int = 0
+var slot_need : bool = true
 
 func _ready() -> void:
 	child_entered_tree.connect(_on_child_added)
 
 
 func _on_child_added(child: Node) -> void:
+	if slot_need == false:
+		auto_slot()
+		return
+
 	match slot_count:
 		0:
 			set_slot(slot_count, false, 0, Color.DIM_GRAY, false, 0, Color.DIM_GRAY)
 			slot_count += 1
 			return
 		1:
-			set_slot(slot_count, true, 1, Color.DIM_GRAY, true, 1, Color.DIM_GRAY)
-			slot_count += 1
-			return
+			if get_meta(\"user_input\") == true:
+				set_slot(slot_count,true, 0, Color.WEB_PURPLE, true, 0, Color.REBECCA_PURPLE)
+				slot_need = false
+				return
+
+			else:
+				set_slot(slot_count, true, 1, Color.DIM_GRAY, true, 1, Color.DIM_GRAY)
+				slot_count += 1
+				return
 		2:
 			set_slot(slot_count, false, 0, Color.DIM_GRAY, false, 0, Color.DIM_GRAY)
 			slot_count += 1
 			return
+	
+	auto_slot()
 
+
+
+func auto_slot():
 	set_slot(
 		slot_count,
 		true, 0, Color.WEB_PURPLE,
