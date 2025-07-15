@@ -43,8 +43,9 @@ $ chmod +x ./OwnView.x86_64
 
 ### Add your API
 <p align="center">
- <img src="https://github.com/user-attachments/assets/2c3f5ebf-47d7-411c-ae1e-d4f770bc3460" alt="OwnView_Screenshot" style="border-radius: 50px; width: 600px; align=center" />
+ <img src="https://github.com/user-attachments/assets/8aee3d49-ea36-423a-81ce-d1773aacbbff" alt="OwnView_Screenshot" style="border-radius: 50px; width: 1000px; align=center" />
 <p align="center">
+
 
 Simply click on “Add Request” and you're ready to add your API.
 Please note that you must enter the HTTP method (POST or GET only) to save your configuration.
