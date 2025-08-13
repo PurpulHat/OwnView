@@ -11,7 +11,6 @@ static func _REQUEST_METHOD(self_node, url, headers, body, method, value):
 			child.queue_free()
 	
 	Node_Tools.unix_time = Time.get_unix_time_from_system()
-	Node_Tools.reset_state()
 	
 	match method:
 		"POST":

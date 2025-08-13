@@ -19,8 +19,6 @@ func _on_button_pressed() -> void:
 	node_instance.set_meta("user_input", true)
 	$GraphEdit.add_child(node_instance)
 	Node_Tools.option_button(node_instance)
-	
-
 
 func _on_graph_edit_connection_to_empty(from_node: StringName, from_port: int, release_position: Vector2) -> void:
 	print ("Hey")

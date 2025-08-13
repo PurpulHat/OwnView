@@ -45,6 +45,7 @@ static func reset_state():
 	unix_time = null
 
 
+
 static func check_same_name(check, check_list = check_list):
 	if Node_Tools.check_bool == true:
 		if not check in check_number:
@@ -167,7 +168,7 @@ static func _insert_option(node, graph_node, button, value, mother):
 
 
 static func _insert_value(node, graph_node, node_instance, value, mother):
-	if str(value) == "":
+	if str(value) == "" or str(value) == "<null>":
 		return
 	
 	var menu_value = MenuButton.new()
@@ -176,6 +177,7 @@ static func _insert_value(node, graph_node, node_instance, value, mother):
 	menu_value.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	node_instance.add_child(menu_value)
 	menu_value.set_meta("slot_number", Node_Tools.a)
+	
 	
 	_insert_option(node_instance, graph_node, menu_value, value, mother)
 
@@ -188,10 +190,15 @@ static func _insert_key(node, graph_node, node_instance, key, mother):
 	menu_key.name = str(key)
 	menu_key.modulate = Color(0.8, 0.8, 0.8)
 	node_instance.add_child(menu_key)
+	
+	var previous_check_label = check_label_key
+	
 	check_label_key = key
 	menu_key.set_meta("slot_number", a)
-	
 	_insert_option(node_instance, graph_node, menu_key, key, mother)
+	
+	check_label_key = previous_check_label
+	menu_key.set_meta("slot_number", a)
 
 
 

@@ -8,13 +8,13 @@
 [node name="Control" type="Window"]
 title = "Choose your search"
 position = Vector2i(0, 36)
-size = Vector2i(615, 425)
+size = Vector2i(850, 425)
 unresizable = true
 script = ExtResource("1_w3340")
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = -15.0
-offset_right = 615.0
+offset_right = 850.0
 offset_bottom = 425.0
 theme = SubResource("Theme_w3340")
 
@@ -22,35 +22,43 @@ theme = SubResource("Theme_w3340")
 layout_mode = 0
 offset_left = 21.0
 offset_top = 9.0
-offset_right = 353.0
+offset_right = 585.0
 offset_bottom = 416.0
 script = ExtResource("1_x7ktf")
 
 [node name="TextEdit" type="TextEdit" parent="Panel"]
 layout_mode = 0
-offset_left = 360.0
+offset_left = 594.0
 offset_top = 9.0
-offset_right = 623.0
-offset_bottom = 379.0
+offset_right = 857.0
+offset_bottom = 339.0
 placeholder_text = "Description"
 editable = false
 wrap_mode = 1
 
 [node name="New Request" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 360.0
-offset_top = 385.0
-offset_right = 480.0
-offset_bottom = 416.0
+offset_left = 708.0
+offset_top = 347.0
+offset_right = 857.0
+offset_bottom = 378.0
 text = "+ New request"
 
 [node name="Use selected" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 487.0
-offset_top = 385.0
-offset_right = 623.0
-offset_bottom = 416.0
+offset_left = 595.0
+offset_top = 384.0
+offset_right = 858.0
+offset_bottom = 415.0
 text = "Use selected"
+
+[node name="Request Option" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 595.0
+offset_top = 347.0
+offset_right = 701.0
+offset_bottom = 378.0
+text = "Options"
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
 [connection signal="item_selected" from="Panel/Tree" to="Panel/Tree" method="_on_item_selected"]

@@ -27,7 +27,7 @@ func get_value_key(json = Node_Tools.json_data, mother = "Master"):
 
 	for get_key in json:
 		var inside_key = json[get_key]
-
+		
 		if inside_key is Dictionary:
 			Node_Tools.check_list.append(get_key)
 			get_value_key(inside_key, Node_Tools.check_same_name(get_key, Node_Tools.check_list))
@@ -86,6 +86,10 @@ func create_or_add(mother, value, key):
 		if Node_Tools.check_label_key != key:
 			# Verify if key's name don't already exist
 			Node_Tools._insert_key($".", %GraphEdit, node_instance, key, mother)
+			Node_Tools._insert_value($".", %GraphEdit, node_instance, value, mother)
+		else:
+			# Cas où la clé existe déjà - on n'insère que la valeur
+			Node_Tools._insert_value($".", %GraphEdit, node_instance, value, mother)
 
 		# Create Label for your value
 		var menu_value = MenuButton.new()
@@ -110,4 +114,4 @@ func create_or_add(mother, value, key):
 			Node_Tools._insert_key($".", %GraphEdit, node_instance, key, mother)
 
 		# Create Label for your value
-		Node_Tools._insert_value($".", %GraphEdit,node_instance, value, mother)
+		Node_Tools._insert_value($".", %GraphEdit, node_instance, value, mother)

@@ -14,12 +14,19 @@ config/name="OwnView"
 config/tags=PackedStringArray("osint")
 run/main_scene="res://Graphical Menu/Graphic.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(0.113725, 0.105882, 0.133333, 1)
+boot_splash/show_image=false
 config/icon="uid://l2ig7bdjwv22"
 config/windows_native_icon="res://Img/OwnViewLogo.ico"
 
 [autoload]
 
 GlobalSignal="*res://Class/Global_Signal.gd"
+
+[display]
+
+window/size/viewport_width=1024
+window/size/viewport_height=600
 
 [global]
 
